@@ -2,6 +2,7 @@
 @author Angad Singh
 Adapted from MIT CS6.006 
 """
+import sys
 
 class RollingHash:
 
@@ -38,5 +39,20 @@ class KarpRabin:
 			ht.skip(ord(str[i-len(sub)]))
 			ht.append(ord(str[i]))
 			if ht.hash_value == hs.hash_value:
-				return True
+				if sub == str[i-len(sub)+1:i+1]:
+					return True
 		return False
+
+def main():
+	if len(sys.argv) != 3:
+		print "Usage: karp_rabin.py string substring"
+		exit()
+
+	kr = KarpRabin()
+	str = sys.argv[1]
+	sub = sys.argv[2]
+	print kr.search(str, sub)
+
+if __name__ == "__main__":
+	import profile
+	profile.run("main()")
